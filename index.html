@@ -1,246 +1,180 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daily Code</title>
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', 'Consolas', monospace;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mã Hằng Ngày</title>
+  <style>
+    :root {
+      --bg-color: #0a0e17;
+      --card-bg: #111827;
+      --accent-color: #00d2ff;
+      --accent-glow: rgba(0, 210, 255, 0.35);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border-color: #1e293b;
+    }
 
-  body {
-    background: #000000;
-    background-image: 
-      radial-gradient(circle at 20% 20%, rgba(0, 150, 255, 0.15), transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(0, 100, 255, 0.1), transparent 50%);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #00d4ff;
-    overflow: hidden;
-    position: relative;
-  }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-  /* Hiệu ứng lưới nền */
-  body::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: 
-      linear-gradient(rgba(0, 150, 255, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 150, 255, 0.05) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
-  }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
 
-  .container {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    padding: 50px 40px;
-    border: 2px solid rgba(0, 180, 255, 0.4);
-    border-radius: 20px;
-    background: rgba(0, 20, 40, 0.6);
-    backdrop-filter: blur(10px);
-    box-shadow: 
-      0 0 30px rgba(0, 150, 255, 0.3),
-      inset 0 0 30px rgba(0, 100, 200, 0.1);
-    max-width: 500px;
-    width: 90%;
-    animation: glow 3s ease-in-out infinite alternate;
-  }
+    .container {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px var(--accent-glow);
+      text-align: center;
+    }
 
-  @keyframes glow {
-    from { box-shadow: 0 0 20px rgba(0, 150, 255, 0.3), inset 0 0 20px rgba(0, 100, 200, 0.1); }
-    to   { box-shadow: 0 0 40px rgba(0, 180, 255, 0.6), inset 0 0 30px rgba(0, 100, 200, 0.2); }
-  }
+    h1 {
+      font-size: 1.4rem;
+      color: var(--accent-color);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
 
-  .title {
-    font-size: 14px;
-    letter-spacing: 4px;
-    color: #0088cc;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    text-shadow: 0 0 10px rgba(0, 180, 255, 0.8);
-  }
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
 
-  .date {
-    font-size: 16px;
-    color: #66ccff;
-    margin-bottom: 30px;
-    letter-spacing: 2px;
-  }
+    .code-box {
+      background-color: rgba(0, 0, 0, 0.5);
+      border: 2px dashed var(--accent-color);
+      border-radius: 12px;
+      padding: 20px;
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 4px;
+      color: #ffffff;
+      text-shadow: 0 0 12px var(--accent-color);
+      margin-bottom: 20px;
+      user-select: all;
+    }
 
-  .code-box {
-    position: relative;
-    padding: 25px 20px;
-    margin: 20px 0;
-    border: 2px dashed rgba(0, 200, 255, 0.5);
-    border-radius: 12px;
-    background: rgba(0, 30, 60, 0.5);
-    transition: all 0.3s ease;
-  }
+    .btn-copy {
+      background-color: var(--accent-color);
+      color: #0a0e17;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 20px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
 
-  .code-box:hover {
-    border-color: #00d4ff;
-    box-shadow: 0 0 25px rgba(0, 200, 255, 0.5);
-  }
+    .btn-copy:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
 
-  .code-label {
-    font-size: 12px;
-    color: #0088cc;
-    letter-spacing: 3px;
-    margin-bottom: 10px;
-  }
-
-  .code {
-    font-size: 32px;
-    font-weight: bold;
-    letter-spacing: 6px;
-    color: #00e5ff;
-    text-shadow: 
-      0 0 10px #00bfff,
-      0 0 20px #00bfff,
-      0 0 30px #0088cc;
-    animation: pulse 2s ease-in-out infinite;
-    word-break: break-all;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.75; }
-  }
-
-  .copy-btn {
-    margin-top: 20px;
-    padding: 12px 30px;
-    font-size: 14px;
-    letter-spacing: 2px;
-    color: #00d4ff;
-    background: transparent;
-    border: 2px solid #00aaff;
-    border-radius: 8px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    font-family: inherit;
-  }
-
-  .copy-btn:hover {
-    background: #00aaff;
-    color: #000;
-    box-shadow: 0 0 20px #00aaff;
-  }
-
-  .copy-btn:active {
-    transform: scale(0.95);
-  }
-
-  .footer {
-    margin-top: 25px;
-    font-size: 11px;
-    color: #005577;
-    letter-spacing: 2px;
-  }
-
-  .dot {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    background: #00ff88;
-    border-radius: 50%;
-    margin-right: 6px;
-    box-shadow: 0 0 10px #00ff88;
-    animation: blink 1.5s infinite;
-  }
-
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-</style>
+    .info-group {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-color);
+      padding-top: 16px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="title">◆ DAILY ACCESS CODE ◆</div>
-  <div class="date" id="dateDisplay">--/--/----</div>
+  <div class="container">
+    <h1>Mã Phần Thưởng Hằng Ngày</h1>
+    <p class="subtitle">Mỗi ngày tự động hiển thị 1 mã theo thứ tự</p>
 
-  <div class="code-box">
-    <div class="code-label">MÃ HÔM NAY</div>
-    <div class="code" id="codeDisplay">----------</div>
+    <div class="code-box" id="daily-code">LOADING...</div>
+
+    <button class="btn-copy" onclick="copyCode()">Sao Chép Mã</button>
+
+    <div class="info-group">
+      <span>Ngày: <strong id="current-day" style="color: var(--accent-color);">Ngày 1</strong></span>
+      <span>Tổng số mã: <strong id="total-codes" style="color: var(--text-main);">9</strong></span>
+    </div>
   </div>
 
-  <button class="copy-btn" onclick="copyCode()">SAO CHÉP CODE</button>
+  <script>
+    const codes = [
+      "K8F2M9P4VT", // Ngày 1 (Dòng 1)
+      "P4N8Q2Y6KD", // Ngày 2
+      "9J3C7V1M8L", // Ngày 3
+      "W5T2B9R4HX", // Ngày 4
+      "2M8G6K1P9S", // Ngày 5
+      "X7L3D9V4B2", // Ngày 6
+      "R1P9H5Z3C8", // Ngày 7
+      "4V8N2Q6M1K", // Ngày 8
+      "Z3T7B1W9F5"  // Ngày 9
+    ];
 
-  <div class="footer">
-    <span class="dot"></span>HỆ THỐNG ĐANG HOẠT ĐỘNG
-  </div>
-</div>
+    function updateUI() {
+      // 1. Lấy hoặc tạo ngày bắt đầu trong localStorage
+      let startDateStr = localStorage.getItem('app_start_date');
+      
+      if (!startDateStr) {
+        // Nếu lần đầu tiên mở web, lưu ngày hôm nay làm Ngày 1
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Đưa về 00:00:00 của ngày hôm nay
+        startDateStr = today.toISOString();
+        localStorage.setItem('app_start_date', startDateStr);
+      }
 
-<script>
-  // Danh sách 9 code
-  const codes = [
-    "K8F2M9P4VT",
-    "P4N8Q2Y6KD",
-    "9J3C7V1M8L",
-    "W5T2B9R4HX",
-    "2M8G6K1P9S",
-    "X7L3D9V4B2",
-    "R1P9H5Z3C8",
-    "4V8N2Q6M1K",
-    "Z3T7B1W9F5"
-  ];
+      // 2. Tính số ngày đã trôi qua kể từ Ngày 1
+      const startDate = new Date(startDateStr);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
 
-  function getTodayCode() {
-    const today = new Date();
-    // Tính số ngày kể từ mốc 01/01/2024
-    const startDate = new Date(2024, 0, 1);
-    const diffTime = today - startDate;
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-    
-    // Lấy code theo index xoay vòng
-    const index = ((diffDays % codes.length) + codes.length) % codes.length;
-    return codes[index];
-  }
+      const diffTime = today.getTime() - startDate.getTime();
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); // Số ngày đã trải qua (0, 1, 2...)
 
-  function formatDate(date) {
-    const d = String(date.getDate()).padStart(2, '0');
-    const m = String(date.getMonth() + 1).padStart(2, '0');
-    const y = date.getFullYear();
-    return `${d}/${m}/${y}`;
-  }
+      // 3. Chọn code tương ứng (vòng lặp lại nếu vượt quá danh sách)
+      const codeIndex = diffDays % codes.length;
 
-  function updateDisplay() {
-    document.getElementById('dateDisplay').textContent = formatDate(new Date());
-    document.getElementById('codeDisplay').textContent = getTodayCode();
-  }
-
-  function copyCode() {
-    const code = getTodayCode();
-    navigator.clipboard.writeText(code).then(() => {
-      const btn = document.querySelector('.copy-btn');
-      const oldText = btn.textContent;
-      btn.textContent = '✓ ĐÃ SAO CHÉP';
-      setTimeout(() => btn.textContent = oldText, 1500);
-    });
-  }
-
-  // Cập nhật lúc load và tự động làm mới khi qua ngày mới
-  updateDisplay();
-  
-  setInterval(() => {
-    const now = new Date();
-    if (now.getHours() === 0 && now.getMinutes() === 0) {
-      updateDisplay();
+      // 4. Hiển thị lên giao diện
+      document.getElementById('daily-code').innerText = codes[codeIndex];
+      document.getElementById('current-day').innerText = `Ngày ${codeIndex + 1}`;
+      document.getElementById('total-codes').innerText = codes.length;
     }
-  }, 60000); // Kiểm tra mỗi phút
-</script>
 
+    function copyCode() {
+      const codeText = document.getElementById('daily-code').innerText;
+      navigator.clipboard.writeText(codeText).then(() => {
+        const btn = document.querySelector('.btn-copy');
+        btn.innerText = "Đã Sao Chép!";
+        btn.style.backgroundColor = "#10b981";
+        btn.style.color = "#ffffff";
+        setTimeout(() => {
+          btn.innerText = "Sao Chép Mã";
+          btn.style.backgroundColor = "var(--accent-color)";
+          btn.style.color = "#0a0e17";
+        }, 2000);
+      });
+    }
+
+    updateUI();
+  </script>
 </body>
 </html>
