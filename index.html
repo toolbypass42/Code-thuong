@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Code</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', 'Consolas', monospace;
+  }
+
+  body {
+    background: #000000;
+    background-image: 
+      radial-gradient(circle at 20% 20%, rgba(0, 150, 255, 0.15), transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(0, 100, 255, 0.1), transparent 50%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00d4ff;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Hiệu ứng lưới nền */
+  body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(0, 150, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 150, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 50px 40px;
+    border: 2px solid rgba(0, 180, 255, 0.4);
+    border-radius: 20px;
+    background: rgba(0, 20, 40, 0.6);
+    backdrop-filter: blur(10px);
+    box-shadow: 
+      0 0 30px rgba(0, 150, 255, 0.3),
+      inset 0 0 30px rgba(0, 100, 200, 0.1);
+    max-width: 500px;
+    width: 90%;
+    animation: glow 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from { box-shadow: 0 0 20px rgba(0, 150, 255, 0.3), inset 0 0 20px rgba(0, 100, 200, 0.1); }
+    to   { box-shadow: 0 0 40px rgba(0, 180, 255, 0.6), inset 0 0 30px rgba(0, 100, 200, 0.2); }
+  }
+
+  .title {
+    font-size: 14px;
+    letter-spacing: 4px;
+    color: #0088cc;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(0, 180, 255, 0.8);
+  }
+
+  .date {
+    font-size: 16px;
+    color: #66ccff;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+  }
+
+  .code-box {
+    position: relative;
+    padding: 25px 20px;
+    margin: 20px 0;
+    border: 2px dashed rgba(0, 200, 255, 0.5);
+    border-radius: 12px;
+    background: rgba(0, 30, 60, 0.5);
+    transition: all 0.3s ease;
+  }
+
+  .code-box:hover {
+    border-color: #00d4ff;
+    box-shadow: 0 0 25px rgba(0, 200, 255, 0.5);
+  }
+
+  .code-label {
+    font-size: 12px;
+    color: #0088cc;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+  }
+
+  .code {
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 6px;
+    color: #00e5ff;
+    text-shadow: 
+      0 0 10px #00bfff,
+      0 0 20px #00bfff,
+      0 0 30px #0088cc;
+    animation: pulse 2s ease-in-out infinite;
+    word-break: break-all;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.75; }
+  }
+
+  .copy-btn {
+    margin-top: 20px;
+    padding: 12px 30px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #00d4ff;
+    background: transparent;
+    border: 2px solid #00aaff;
+    border-radius: 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    font-family: inherit;
+  }
+
+  .copy-btn:hover {
+    background: #00aaff;
+    color: #000;
+    box-shadow: 0 0 20px #00aaff;
+  }
+
+  .copy-btn:active {
+    transform: scale(0.95);
+  }
+
+  .footer {
+    margin-top: 25px;
+    font-size: 11px;
+    color: #005577;
+    letter-spacing: 2px;
+  }
+
+  .dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #00ff88;
+    border-radius: 50%;
+    margin-right: 6px;
+    box-shadow: 0 0 10px #00ff88;
+    animation: blink 1.5s infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="title">◆ DAILY ACCESS CODE ◆</div>
+  <div class="date" id="dateDisplay">--/--/----</div>
+
+  <div class="code-box">
+    <div class="code-label">MÃ HÔM NAY</div>
+    <div class="code" id="codeDisplay">----------</div>
+  </div>
+
+  <button class="copy-btn" onclick="copyCode()">SAO CHÉP CODE</button>
+
+  <div class="footer">
+    <span class="dot"></span>HỆ THỐNG ĐANG HOẠT ĐỘNG
+  </div>
+</div>
+
+<script>
+  // Danh sách 9 code
+  const codes = [
+    "K8F2M9P4VT",
+    "P4N8Q2Y6KD",
+    "9J3C7V1M8L",
+    "W5T2B9R4HX",
+    "2M8G6K1P9S",
+    "X7L3D9V4B2",
+    "R1P9H5Z3C8",
+    "4V8N2Q6M1K",
+    "Z3T7B1W9F5"
+  ];
+
+  function getTodayCode() {
+    const today = new Date();
+    // Tính số ngày kể từ mốc 01/01/2024
+    const startDate = new Date(2024, 0, 1);
+    const diffTime = today - startDate;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    
+    // Lấy code theo index xoay vòng
+    const index = ((diffDays % codes.length) + codes.length) % codes.length;
+    return codes[index];
+  }
+
+  function formatDate(date) {
+    const d = String(date.getDate()).padStart(2, '0');
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const y = date.getFullYear();
+    return `${d}/${m}/${y}`;
+  }
+
+  function updateDisplay() {
+    document.getElementById('dateDisplay').textContent = formatDate(new Date());
+    document.getElementById('codeDisplay').textContent = getTodayCode();
+  }
+
+  function copyCode() {
+    const code = getTodayCode();
+    navigator.clipboard.writeText(code).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      const oldText = btn.textContent;
+      btn.textContent = '✓ ĐÃ SAO CHÉP';
+      setTimeout(() => btn.textContent = oldText, 1500);
+    });
+  }
+
+  // Cập nhật lúc load và tự động làm mới khi qua ngày mới
+  updateDisplay();
+  
+  setInterval(() => {
+    const now = new Date();
+    if (now.getHours() === 0 && now.getMinutes() === 0) {
+      updateDisplay();
+    }
+  }, 60000); // Kiểm tra mỗi phút
+</script>
+
+</body>
+</html>
